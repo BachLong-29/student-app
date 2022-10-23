@@ -1,25 +1,22 @@
-export const data = [
+import { Student } from "./utils/constanst";
+
+export const data: Student[] = [
   {
     key: "1",
     name: "John",
     age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
+    gender: "male",
   },
   {
     key: "2",
     name: "Jim",
-    lastName: "Green",
     age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
+    gender: "male",
   },
   {
     key: "3",
-    name: "Joe",
-    lastName: "Black",
+    name: "Anne",
     age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
+    gender: "female",
   },
 ];

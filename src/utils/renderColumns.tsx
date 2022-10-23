@@ -1,8 +1,13 @@
 import DeleteButton from "../ui/Button/DeleteButton";
 import EditButton from "./../ui/Button/EditButton";
 import React from "react";
+import { Student } from "./constanst";
 
-export const renderColumns = () => {
+type columns = {
+  handleDelete: (id: string) => void;
+  handleEdit: (data: Student) => void;
+};
+export const renderColumns = (props: columns) => {
   return [
     {
       title: "Name",
@@ -15,20 +20,27 @@ export const renderColumns = () => {
       width: 150,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "Gender",
+      dataIndex: "gender",
       width: 150,
     },
     {
       title: "",
       dataIndex: "edit",
-      render: () => <EditButton />,
+      render: (_: any, record: { key: React.Key }) => (
+        <EditButton id={record.key as string} handleEdit={props.handleEdit} />
+      ),
       width: 20,
     },
     {
       title: "",
       dataIndex: "delete",
-      render: () => <DeleteButton />,
+      render: (_: any, record: { key: React.Key }) => (
+        <DeleteButton
+          id={record.key as string}
+          handleDelete={props.handleDelete}
+        />
+      ),
       width: 20,
     },
   ];

@@ -1,22 +1,57 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input, Radio } from "antd";
 
-import React from "react";
+import { Student } from "./../../utils/constanst";
 
-const FormStudent = () => {
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+interface Props {
+  handleAdd?: (data: Student) => void;
+  handleEdit?: (data: Student) => void;
+  isEdit?: boolean;
+  data?: Student;
+}
+
+const FormStudent = (props: Props) => {
+  const { handleAdd, handleEdit, isEdit = false, data } = props;
+  const [form] = Form.useForm();
+  console.log(data);
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  const onFinish = (values: Student) => {
+    if (isEdit) {
+      handleEdit?.({
+        key: "4",
+        name: values.name,
+        age: values.age,
+        gender: values.gender,
+      });
+    } else {
+      handleAdd?.({
+        key: "4",
+        name: values.name,
+        age: values.age,
+        gender: values.gender,
+      });
+    }
+    onReset();
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <>
       <Form
+        form={form}
         name="basic"
         labelCol={{ span: 3 }}
         wrapperCol={{ span: 21 }}
-        initialValues={{ remember: true }}
+        initialValues={{
+          name: data?.name,
+          age: data?.age,
+          gender: data?.gender,
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -36,12 +71,12 @@ const FormStudent = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 3, span: 21 }}
-        >
-          <Checkbox>Remember me</Checkbox>
+        <Form.Item name="gender" label="Gender: ">
+          <Radio.Group>
+            <Radio value="male">Male</Radio>
+            <Radio value="female">Female</Radio>
+            <Radio value="others">Others</Radio>
+          </Radio.Group>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 3, span: 21 }}>

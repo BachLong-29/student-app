@@ -1,10 +1,17 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import React from "react";
 
-const DeleteButton = () => {
+interface Props {
+  handleDelete: (id: string) => void;
+  id: string;
+}
+const DeleteButton = (props: Props) => {
+  const { handleDelete, id } = props;
   return (
     <>
-      <DeleteOutlined style={{ cursor: "pointer" }} />
+      <DeleteOutlined
+        onClick={() => handleDelete(id)}
+        style={{ cursor: "pointer" }}
+      />
     </>
   );
 };
