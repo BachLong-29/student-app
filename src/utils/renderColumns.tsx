@@ -4,7 +4,6 @@ import React from "react";
 import { Student } from "./constanst";
 
 type columns = {
-  handleDelete: (id: string) => void;
   handleEdit: (data: Student) => void;
 };
 export const renderColumns = (props: columns) => {
@@ -28,7 +27,7 @@ export const renderColumns = (props: columns) => {
       title: "",
       dataIndex: "edit",
       render: (_: any, record: { key: React.Key }) => (
-        <EditButton id={record.key as string} handleEdit={props.handleEdit} />
+        <EditButton id={record.key as string} />
       ),
       width: 20,
     },
@@ -36,10 +35,7 @@ export const renderColumns = (props: columns) => {
       title: "",
       dataIndex: "delete",
       render: (_: any, record: { key: React.Key }) => (
-        <DeleteButton
-          id={record.key as string}
-          handleDelete={props.handleDelete}
-        />
+        <DeleteButton id={record.key as string} />
       ),
       width: 20,
     },

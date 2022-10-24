@@ -1,15 +1,17 @@
 import { DeleteOutlined } from "@ant-design/icons";
+import { removeStudentRedux } from "../../actions/student.actions";
+import { useDispatch } from "react-redux";
 
 interface Props {
-  handleDelete: (id: string) => void;
   id: string;
 }
 const DeleteButton = (props: Props) => {
-  const { handleDelete, id } = props;
+  const { id } = props;
+  const dispatch = useDispatch();
   return (
     <>
       <DeleteOutlined
-        onClick={() => handleDelete(id)}
+        onClick={() => dispatch(removeStudentRedux(id))}
         style={{ cursor: "pointer" }}
       />
     </>

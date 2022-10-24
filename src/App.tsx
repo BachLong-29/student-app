@@ -7,30 +7,27 @@ import { Table } from "antd";
 import { cloneDeep } from "lodash";
 import { data } from "./data";
 import { renderColumns } from "./utils/renderColumns";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 
 function App() {
   const [dataSource, setDataSource] = useState<Student[]>(data);
-  const handleDelete = (key: string) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
-  };
-  const handleAdd = (newData: Student) => {
-    setDataSource([...dataSource, newData]);
-  };
+  const studentRedux = useSelector((state: any) => state.student);
+
   const handleEdit = (newData: Student) => {
     const cloneData = cloneDeep(dataSource);
     cloneData.splice(dataSource.indexOf(newData) - 1, 1, newData);
     setDataSource(cloneData);
   };
+
   const columns = renderColumns({
-    handleDelete: handleDelete,
     handleEdit: handleEdit,
   });
+
   return (
     <Box style={{ margin: "12px" }}>
-      <FormStudent handleAdd={handleAdd} />
-      <Table bordered columns={columns} dataSource={dataSource} />
+      <FormStudent />
+      <Table bordered columns={columns} dataSource={studentRedux} />
     </Box>
   );
 }

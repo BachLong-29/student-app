@@ -3,14 +3,14 @@ import { Modal } from "antd";
 import { Student } from "./../../utils/constanst";
 
 interface Props {
+  id?: string;
   isModalOpen: boolean;
   dataSource?: Student;
   handleCancel: () => void;
-  handleEdit?: (data: Student) => void;
 }
 
 const StudentModal = (props: Props) => {
-  const { isModalOpen, dataSource, handleCancel, handleEdit } = props;
+  const { isModalOpen, dataSource, handleCancel, id } = props;
   return (
     <>
       <Modal
@@ -19,7 +19,7 @@ const StudentModal = (props: Props) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <FormStudent isEdit={true} data={dataSource} handleEdit={handleEdit} />
+        <FormStudent id={id} isEdit={true} data={dataSource} />
       </Modal>
     </>
   );

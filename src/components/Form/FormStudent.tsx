@@ -1,37 +1,46 @@
 import { Button, Form, Input, Radio } from "antd";
+import {
+  addStudentRedux,
+  editStudentRedux,
+} from "./../../actions/student.actions";
 
 import { Student } from "./../../utils/constanst";
+import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {
-  handleAdd?: (data: Student) => void;
-  handleEdit?: (data: Student) => void;
-  isEdit?: boolean;
+  id?: string;
   data?: Student;
+  isEdit?: boolean;
 }
 
 const FormStudent = (props: Props) => {
-  const { handleAdd, handleEdit, isEdit = false, data } = props;
+  const { id = "", data, isEdit = false } = props;
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
-  console.log(data);
   const onReset = () => {
     form.resetFields();
   };
 
   const onFinish = (values: Student) => {
     if (isEdit) {
-      handleEdit?.({
-        key: "4",
-        name: values.name,
-        age: values.age,
-        gender: values.gender,
-      });
+      dispatch(
+        editStudentRedux({
+          key: id,
+          name: values.name,
+          age: values.age,
+          gender: values.gender,
+        })
+      );
     } else {
-      handleAdd?.({
-        key: "4",
-        name: values.name,
-        age: values.age,
-        gender: values.gender,
-      });
+      dispatch(
+        addStudentRedux({
+          key: uuidv4(),
+          name: values.name,
+          age: values.age,
+          gender: values.gender,
+        })
+      );
     }
     onReset();
   };

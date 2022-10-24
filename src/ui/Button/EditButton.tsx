@@ -6,7 +6,6 @@ import { useState } from "react";
 
 interface Props {
   id: string;
-  handleEdit: (data: Student) => void;
 }
 const EditButton = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,10 +17,6 @@ const EditButton = (props: Props) => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -29,10 +24,10 @@ const EditButton = (props: Props) => {
     <>
       <EditOutlined onClick={showModal} style={{ cursor: "pointer" }} />
       <StudentModal
+        id={props.id}
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}
         dataSource={getData()}
-        handleEdit={props.handleEdit}
       />
     </>
   );
